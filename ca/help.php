@@ -368,6 +368,6 @@ PHPki glossary of terms.
 </blockquote>
 <br>
 
-<?
+<?php
 printFooter();
 ?>

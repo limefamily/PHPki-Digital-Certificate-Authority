@@ -22,7 +22,7 @@ function flush_exec($command, $line_length=200) {
                 }
         }
         print $line."<br>\n";
-	flush;
+	flush();
 	return;
 }
 
@@ -109,7 +109,7 @@ case 'validate':
 	if ( $passwd and $passwd != $passwdv )
 		$er .= 'Password and password verification do not match.<br>';
 
-        if ( $email && ! is_email($contact) )
+        if ( isset($email) && ! is_email($contact) )
                 $er .= 'E-mail address ('. htvar($contact) . ') may be invalid.<br>';
 
 	if (strpos($store_dir,$_SERVER['DOCUMENT_ROOT']) === 0)
@@ -145,7 +145,7 @@ case 'validate':
                 <font color=#ff0000><?=$er?></font>
                 <br><input type=submit name=Submit2 value='Go Back'>
 
-                <?
+                <?php
                 print $hidden_fields;
                 print "</form>";
 
@@ -630,11 +630,14 @@ EOS;
 	<input type=submit name=submit value="Proceed To The PHPki Main Menu">
 	</form>
 	</center>
-	<?
+	<?php
 	printFooter();
 	break;
 
 default:
+	if(!isset($config)){
+		$config = null;
+	}
 	if (! $country) $country = $config['country'];
 	if (! $province) $province = $config['province'];
 	if (! $locality) $locality = $config['locality'];
@@ -751,7 +754,7 @@ E-mail: <a href=mailto:someone@somewhere.com>someone@somewhere.com</a>&nbsp;&nbs
 	</td>
 	<td><select name=expiry>
 
-	<?
+	<?php
         for ( $i = 5 ; $i < 20 ; $i+=5 ) {
                 print "<option value=$i " . ($expiry == $i ? "selected='selected
 '" : "") . " >$i Years</option>\n" ;
@@ -768,7 +771,7 @@ E-mail: <a href=mailto:someone@somewhere.com>someone@somewhere.com</a>&nbsp;&nbs
 	</td>
 	<td><select name=keysize>
 
-	<?
+	<?php
         for ( $i = 512 ; $i <= 4096 ; $i+=512 ) {
                 print "<option value=$i " . ($keysize == $i ? "selected='selected
 '" : "") . " >$i bits</option>\n" ;
@@ -876,7 +879,7 @@ E-mail: <a href=mailto:someone@somewhere.com>someone@somewhere.com</a>&nbsp;&nbs
 	<input type=hidden name=stage value='validate'>
 	</form>
 
-	<?
+	<?php
 	printFooter();
 	break;
 }

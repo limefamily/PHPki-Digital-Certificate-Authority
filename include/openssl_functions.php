@@ -212,18 +212,18 @@ function CAdb_to_array($search = '.*') {
 	global $config;
 
 	# Prepend a default status to search string if missing.
-	if (! ereg('^\^\[.*\]', $search)) $search = '^[VRE].*'.$search;
+	if (! preg_match('/^\^\[.*\]/', $search)) $search = '^[VRE].*'.$search;
 
 	# Include valid certs?
-	if (ereg('^\^\[.*V.*\]',$search)) $inclval = true;
+	if (preg_match('/^\^\[.*V.*\]/',$search)) $inclval = true;
 	# Include revoked certs?
-	if (ereg('^\^\[.*R.*\]',$search)) $inclrev = true;
+	if (preg_match('/^\^\[.*R.*\]/',$search)) $inclrev = true;
 	# Include expired certs?
-	if (ereg('^\^\[.*E.*\]',$search)) $inclexp = true;
+	if (preg_match('/^\^\[.*E.*\]/',$search)) $inclexp = true;
 
 	# There isn't really a status of 'E' in the openssl index.
 	# Change (E)xpired to (V)alid within the search string.
-	$search = ereg_replace('^(\^\[.*)E(.*\])','\\1V\\2',$search);
+	$search = preg_replace('{^(\^\[.*)E(.*\])}','\\1V\\2',$search);
 
 	$db = array();
 	exec('egrep -i '.escshellarg($search).' '.$config['index'], $x);
@@ -260,7 +260,7 @@ function CAdb_get_entry($serial) {
 function CAdb_in($email="", $name="") {
 	global $config;
 	$regexp = "^[V].*CN=$name/(Email|emailAddress)=$email";
-        $x =exec('egrep '.escshellarg($regexp).' '.$config[index]);
+        $x =exec('egrep '.escshellarg($regexp).' '.$config['index']);
 
         if ($x) {
 		list($j,$j,$j,$serial,$j,$j) = explode("\t", $x);
@@ -302,6 +302,7 @@ function CAdb_issuer($serial) {
 //         issuer, unit, common_name, email
 //
 function CAdb_explode_entry($dbentry) {
+	date_default_timezone_set("Etc/GMT-8");
 	$a = explode("\t", $dbentry);
 	$b  = preg_split('/\/([A-Z]|[a-z])+=/', $a[5]);
 

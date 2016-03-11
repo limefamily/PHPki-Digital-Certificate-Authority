@@ -21,7 +21,7 @@ case 'list_users':
 	<form action=<?=$PHP_SELF?> method=post>
 	<input type=submit name=submit value="Back to Menu">
 	</form>
-	<?
+	<?php
 	printFooter(false);
 	break;
 
@@ -39,7 +39,7 @@ case 'add_user_form';
 	<input type=hidden name=stage value=add_user>
 	<input type=submit name=submit value='Submit'>
 	</form>
-	<?
+	<?php
 	break;
 
 case 'add_user':
@@ -54,7 +54,7 @@ case 'add_user':
 		<input type=hidden name=login value="<?=htvar($login)?>">
 		<input type=submit name=submit value=Back>
 		</form></center>
-		<?
+		<?php
 	}
 	else {
 		$pwdfile = escapeshellarg($config['passwd_file']);
@@ -68,7 +68,7 @@ case 'add_user':
 		<form action=<?=$PHP_SELF?> method=post>
 		<input type=submit name=submit value="Back to Menu">
 		</form>
-		<?
+		<?php
 	}
 	printFooter();
 	break;
@@ -85,7 +85,7 @@ case 'del_user_form';
 	<input type=hidden name=stage value=del_user>
 	<input type=submit name=submit value='Submit'>
 	</form>
-	<?
+	<?php
 	printFooter();
 	break;
 case 'del_user':
@@ -101,7 +101,7 @@ case 'del_user':
 	<form action=<?=$PHP_SELF?> method=post>
 	<input type=submit name=submit value="Back to Menu">
 	</form>
-	<?
+	<?php
 	printFooter();
 	break;
 
@@ -120,7 +120,7 @@ default:
 	</table>
 	</center>
 	<br><br>
-	<?
+	<?php
 	printFooter();
 }
 

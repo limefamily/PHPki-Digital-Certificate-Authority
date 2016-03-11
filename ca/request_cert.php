@@ -93,7 +93,7 @@ case 'validate':
 		<font color=#ff0000><?=$er?></font>
 		<br><input type=submit name=submit value='Go Back'>
 		
-		<?
+		<?php
 		print $hidden_fields;
 		print "</form>";
 
@@ -122,7 +122,7 @@ case 'confirm':
     	</td>
 
     	<td>
-    	<?
+    	<?php
 	print htvar($common_name) . '<br>';
     	print htvar($email) . '<br>';
     	print htvar($organization) . '<br>';
@@ -146,7 +146,7 @@ case 'confirm':
   	<input type=submit name=submit value='Go Back'>
 	</form>
 
-	<?
+	<?php
 	printFooter();
 
 	# Save user's defaults 
@@ -186,7 +186,7 @@ case 'final':
 				<input type=submit name=submit value=Back>
 				<p>
 				</form>
-				<?
+				<?php
 
 				printFooter();
 				break;
@@ -275,7 +275,7 @@ default:
 	<tr>
 	<td>Certificate Life </td>
 	<td><select name=expiry>
-	<?
+	<?php
 
 	print "<option value=0.083 " . ($expiry == 1 ? "selected='selected'" : "") . " >1 Month</option>\n" ;
 	print "<option value=0.25 " . ($expiry == 1 ? "selected='selected'" : "") . " >3 Months</option>\n" ;
@@ -293,7 +293,7 @@ default:
 	<tr>
 	<td>Key Size </td>
 	<td><select name=keysize>
-	<?
+	<?php
 	for ( $i = 512 ; $i < 4096 ; $i+= 512 ) {
 		print "<option value=$i " . ($keysize == $i ? "selected='selected'" : "") . " >$i bits</option>\n" ;
 	}
@@ -305,7 +305,7 @@ default:
 	<tr>
 	<td>Certificate Use: </td>
 	<td><select name=cert_type>
-	<?
+	<?php
 	print '<option value="email" '.($cert_type=='email'?'selected':'').'>E-mail, SSL Client</option>';
 	print '<option value="email_signing" '.($cert_type=='email_signing'?'selected':'').'>E-mail, SSL Client, Code Signing</option>';
 	print '<option value="server" '.($cert_type=='server'?'selected':'').'>SSL Server</option>';
@@ -322,7 +322,7 @@ default:
 	</tr>
 	</table>
 	</form>
-	<?
+	<?php
 
 	printFooter();
 }

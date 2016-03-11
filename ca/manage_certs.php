@@ -42,7 +42,7 @@ $qstr_sort   = "sortfield=$sortfield&ascdec=$ascdec";
 switch ($stage) {
 case 'goaway':
 	printHeader(false);
-	?> <p><center><h1><font color=red>YOU ARE A VERY BAD BOY!</font></h2></center> <?
+	?> <p><center><h1><font color=red>YOU ARE A VERY BAD BOY!</font></h2></center> <?php
 	break;
 
 case 'display':
@@ -51,7 +51,7 @@ case 'display':
 	?>
        	<center><h2>Certificate Details</h2></center>
 	<center><font color=#0000AA><h3>(#<?=$serial?>)<br><?=htvar(CA_cert_cname($serial).' <'.CA_cert_email($serial).'>')?> </h3></font></center>
-	<?
+	<?php
 
 	if ($revoke_date = CAdb_is_revoked($serial))
 		print '<center><font color=red><h2>REVOKED '.$revoke_date.'</h2></font></center>';
@@ -81,7 +81,7 @@ case 'dl-confirm':
 	&nbsp; or &nbsp;
 	<input type=submit name=submit value="Go Back">
 	</form>
-	<?
+	<?php
 
 	break;
 
@@ -130,18 +130,18 @@ case 'revoke-form':
        	State/Province<br>
        	Country<br>
        	</td>
-	<?
+	<?php
 
 	print '
        	<td>
-	'.htvar($rec[serial]).'<br>
-       	'.htvar($rec[common_name]).'<br>
-       	'.htvar($rec[email]).'<br>
-       	'.htvar($rec[organization]).'<br>
-       	'.htvar($rec[unit]).'<br>
-       	'.htvar($rec[locality]).'<br>
-       	'.htvar($rec[province]).'<br>
-       	'.htvar($rec[country]).'<br>
+	'.htvar($rec['serial']).'<br>
+       	'.htvar($rec['common_name']).'<br>
+       	'.htvar($rec['email']).'<br>
+       	'.htvar($rec['organization']).'<br>
+       	'.htvar($rec['unit']).'<br>
+       	'.htvar($rec['locality']).'<br>
+       	'.htvar($rec['province']).'<br>
+       	'.htvar($rec['country']).'<br>
        	</td>
        	</tr></table>
 	<h4>Are you sure?</h4>
@@ -175,7 +175,7 @@ case 'revoke':
 		<input type=submit name=submit value=Back>
 		<p>
 		</form>
-		<?
+		<?php
 	}
 	else
 		header("Location: ${PHP_SELF}?$qstr_sort&$qstr_filter");
@@ -250,7 +250,7 @@ case 'renew-form':
 	<tr>
 	<td>Certificate Life </td>
 	<td><select name=expiry>
-	<?
+	<?php
 
 	print "<option value=0.083 " . ($expiry == 1 ? "selected='selected'" : "") . " >1 Month</option>\n" ;
 	print "<option value=0.25 " . ($expiry == 1 ? "selected='selected'" : "") . " >3 Months</option>\n" ;
@@ -276,7 +276,7 @@ case 'renew-form':
 	</tr>
 	</table>
 	</form>
-	<?
+	<?php
 
 	printFooter();
 	break;
@@ -302,7 +302,7 @@ case 'renew':
 		<input type=submit name=submit value=Back>
 		<p>
 		</form>
-		<?
+		<?php
 	}
 	else {
 		header("Location: $PHP_SELF?$qstr_sort&$qstr_filter");
@@ -329,7 +329,7 @@ default:
         </form>
 	</center></td>
 	</tr>
-	<?
+	<?php
 
 	if (! $sortfield) {
 		$sortfield = 'email' ;
@@ -347,10 +347,10 @@ default:
 
 	print '<tr>';
 	$headings = array(
-		status=>"Status", issued=>"Issued", expires=>"Expires",
-		common_name=>"User's Name", email=>"E-mail", 
-		organization=>"Organization", unit=>"Department", 
-		locality=>"Locality"
+		'status'=>"Status", 'issued'=>"Issued", 'expires'=>"Expires",
+		'common_name'=>"User's Name", 'email'=>"E-mail", 
+		'organization'=>"Organization", 'unit'=>"Department", 
+		'locality'=>"Locality"
 	);
 
 	foreach($headings as $field=>$head) {
@@ -376,30 +376,30 @@ default:
 
 	$db = csort(CAdb_to_array($x), $sortfield, ($ascdec=='A'?SORT_ASC:SORT_DESC));
 
-	$stcolor = array(Valid=>'green',Revoked=>'red',Expired=>'orange');
+	$stcolor = array('Valid'=>'green','Revoked'=>'red','Expired'=>'orange');
 
 	foreach($db as $rec) {
 		print	'<tr style="font-size: 11px;">
-			 <td><font color='.$stcolor[$rec['status']].'><b>' .$rec[status].'</b></font></td>
-			 <td style="white-space: nowrap">'.$rec[issued].'</td>
-			 <td style="white-space: nowrap">'.$rec[expires].'</td>
-			 <td>'.$rec[common_name].'</td>
+			 <td><font color='.$stcolor[$rec['status']].'><b>' .$rec['status'].'</b></font></td>
+			 <td style="white-space: nowrap">'.$rec['issued'].'</td>
+			 <td style="white-space: nowrap">'.$rec['expires'].'</td>
+			 <td>'.$rec['common_name'].'</td>
 			 <td style="white-space: nowrap"><a href="mailto:' . htvar($rec['common_name']) . ' <' . htvar($rec['email']) . '>" >' . htvar($rec['email']) . '</a></td>
-			 <td>'.htvar($rec[organization]).'</td>
-			 <td>'.htvar($rec[unit]).'</td>
-			 <td>'.htvar($rec[locality]).'</td>
-			 <td><a href="'.$PHP_SELF.'?stage=display&serial='.$rec[serial].'" target=_certdisp>'.
+			 <td>'.htvar($rec['organization']).'</td>
+			 <td>'.htvar($rec['unit']).'</td>
+			 <td>'.htvar($rec['locality']).'</td>
+			 <td><a href="'.$PHP_SELF.'?stage=display&serial='.$rec['serial'].'" target=_certdisp>'.
 			 '<img src=../images/display.png alt="Display" title="Display complete certificate details."></a>';
 
 		if ($rec['status'] == 'Valid') {
 			print '
-			<a href="'.$PHP_SELF.'?stage=dl-confirm&serial='.$rec[serial].'&'.$qstr_sort.'&'.$qstr_filter.'">'.
+			<a href="'.$PHP_SELF.'?stage=dl-confirm&serial='.$rec['serial'].'&'.$qstr_sort.'&'.$qstr_filter.'">'.
 			'<img src=../images/download.png alt="Download" title="Download the PRIVATE certificate. DO NOT DISTRIBUTE THIS TO THE PUBLIC!"></a>
-			<a href="'.$PHP_SELF.'?stage=revoke-form&serial='.$rec[serial].'&'.$qstr_sort.'&'.$qstr_filter.'">'.
+			<a href="'.$PHP_SELF.'?stage=revoke-form&serial='.$rec['serial'].'&'.$qstr_sort.'&'.$qstr_filter.'">'.
 			'<img src=../images/revoke.png alt="Revoke" title="Revoke the certificate when the e-mail address is no longer valid or the certificate password or private key has been compromised."></a>';
 		}
 		print '
-		<a href="'.$PHP_SELF.'?stage=renew-form&serial='.$rec[serial].'&'.$qstr_sort.'&'.$qstr_filter.'">'.
+		<a href="'.$PHP_SELF.'?stage=renew-form&serial='.$rec['serial'].'&'.$qstr_sort.'&'.$qstr_filter.'">'.
 		'<img src=../images/renew.png alt="Renew" title="Renew the certificate by revoking it, if necessary, and creating a replacement with a new expiration date."></a></td></tr>';
 		
 	}

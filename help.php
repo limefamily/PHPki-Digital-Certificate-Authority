@@ -11,6 +11,6 @@ printHeader(about);
 <p><a href=<?=BASE_URL?>help/usercert_install_ie.html><h3>Installing Your Personal E-mail Certificate For Use With Outlook and Outlook Express</h3></a>
 <p><a href=<?=BASE_URL?>help/glossary.html><h3>Glossary</h3></a>
 </center>
-<?
+<?php
 printFooter();
 ?>

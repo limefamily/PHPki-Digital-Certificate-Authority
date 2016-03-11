@@ -2,7 +2,7 @@
 
 umask(0007);
 
-if ($_SERVER['PHP_AUTH_USER'])
+if (isset($_SERVER['PHP_AUTH_USER']))
 	$PHPki_user = md5($_SERVER['PHP_AUTH_USER']);
 else
 	$PHPki_user = md5('default');
@@ -40,7 +40,7 @@ function printHeader($withmenu="default") {
 	<link rel="stylesheet" type="text/css" href="<?=$style_css?>">
 	</head>
 	<body>
-	<?
+	<?php
 
 	if (isKonq()) { 
 		$logoclass  = 'logo-konq';
@@ -56,7 +56,7 @@ function printHeader($withmenu="default") {
 	?>
 	<div class=<?=$logoclass?>>PHPki</div>
 	<div class=<?=$titleclass?>><?=$title?></div>
-	<?
+	<?php
 
 	switch ($withmenu) {
 	case false:
@@ -69,18 +69,18 @@ function printHeader($withmenu="default") {
 		<a class=<?=$menuclass?> href=setup.php>Setup</a>
 		<a class=<?=$menuclass?> href=about.php target=_about>About</a>
 		</div>
-		<?
+		<?php
 		break;
 	case 'public':
 		print "<div class=$menuclass>";
 
-		if (DEMO)  {
+		//if (DEMO)  {
 			print "<a class=$menuclass href=index.php>Public</a>";
 			print "<a class=$menuclass href=ca/ >Manage</a>";
-		}
-		else {
-			print "<a class=$menuclass href=index.php>Menu</a>";
-		}
+		// }
+		// else {
+		// 	print "<a class=$menuclass href=index.php>Menu</a>";
+		// }
 
 		if (file_exists('policy.html')) {
 			print '<a class='.$menuclass.' style="color: red" href=policy.html target=help>Policy</a>';
@@ -89,19 +89,19 @@ function printHeader($withmenu="default") {
 		<a class=<?=$menuclass?> href=help.php target=_help>Help</a>
 		<a class=<?=$menuclass?> href=about.php target=_about>About</a>
 		</div>
-		<?
+		<?php
 		break;
 	case 'ca':
 	default:
 		print "<div class=$menuclass>";
 
-		if (DEMO)  {
+		//if (DEMO)  {
 			print "<a class=$menuclass href=../index.php>Public</a>";
 			print "<a class=$menuclass href=../ca/index.php>Manage</a>";
-		}
-		else {
-			print "<a class=$menuclass href=index.php>Menu</a>";
-		}
+		// }
+		// else {
+		// 	print "<a class=$menuclass href=index.php>Menu</a>";
+		// }
 
 		if (file_exists('../policy.html')) {
 			print '<a class='.$menuclass.' style="color: red" href=../policy.html target=help>Policy</a>';
@@ -110,10 +110,10 @@ function printHeader($withmenu="default") {
 		<a class=<?=$menuclass?> href=../help.php target=_help>Help</a>
 		<a class=<?=$menuclass?> href=../about.php target=_about>About</a>
 		</div>
-		<?
+		<?php
 	}
 
-	?><hr width=99% align=left color=#99caff><?
+	?><hr width=99% align=left color=#99caff><?php
 }
 
 
@@ -124,7 +124,7 @@ function printFooter() {
 	<center style='margin-top: -5px; font-size: 8pt'>PHPki v<?=PHPKI_VERSION?> - Copyright 2003 - William E. Roadcap</center><br>
 	</body>
 	</html>
-	<?
+	<?php
 }
 
 ?>

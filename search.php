@@ -57,7 +57,7 @@ case search:
 		<input type=submit name=submit value="Go Back">
 		</form>
 		</center>
-		<?
+		<?php
 		printFooter();
 		break;
 	}
@@ -93,11 +93,11 @@ case search:
 		<td><?=htvar($rec['locality'])?></td>
 		<td><?=htvar($rec['province'])?></td>
 		<td><a href=<?=$PHP_SELF?>?stage=display&serial=<?=htvar($rec['serial'])?> target=_certdisp><img src=images/display.png alt="Display" title="Display the certificate in excruciating detail"></a>
-		<?
+		<?php
 		if ($rec['status'] != 'Revoked') {
 			?>
 			<a href=<?=$PHP_SELF?>?stage=download&serial=<?=htvar($rec['serial'])?>><img src=images/download.png alt="Download" title="Download the certificate so that you may send encrypted e-mail"></a>
-			<?
+			<?php
 		}
 		print '</td></tr>';
 	}
@@ -112,7 +112,7 @@ case search:
 	<input type=hidden name=show_revoked value="<?=htvar($show_revoked)?>">
 	<input type=hidden name=show_expired value="<?=htvar($show_expired)?>">
 	</form>
-	<?
+	<?php
 
 	printFooter();
 	break;
@@ -133,7 +133,7 @@ default:
 	</form></center>
 
 	<br><br>
-	<?
+	<?php
 	printFooter();
 }
 

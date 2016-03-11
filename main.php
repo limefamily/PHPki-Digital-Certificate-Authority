@@ -25,7 +25,7 @@ case 'display_root':
 	<form action=<?=$PHP_SELF?> method=post>
 		<input type=submit name=submit value="Back to Menu">
 	</form>
-	<?
+	<?php
 	break;
 
 case 'dl_crl':
@@ -65,7 +65,7 @@ default:
 	</table>
 	</center>
 	<br><br>
-	<?
+	<?php
 
 	printFooter();
 }
