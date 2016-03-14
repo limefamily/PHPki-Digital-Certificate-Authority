@@ -3,7 +3,7 @@ include('./config.php');
 include('./include/my_functions.php');
 include('./include/common.php');
 
-printHeader(about);
+printHeader('about');
 ?>
 <center><h1>PHPki HELP FILES</h1>
 <a href=<?=BASE_URL?>help/PKI_basics.html><h3>PKI and E-mail Encryption - A Brief Explanation</h3></a>
