@@ -607,7 +607,7 @@ EOS;
 
 	#print '<p><strong>Creating 2048 bit Diffie-Hellman parameters used by OpenVPN.<br>';
 	#print "Saving to $store_dir/dhparam2048.pem.</strong><br>";
-	#$cmd = "openssl dhparam -rand '$config[random]' -out '$config[private_dir]/dhparam2048.pem' 2048";
+	#$cmd = "export RANDFILE='$config[random]' && openssl dhparam -rand '$config[random]' -out '$config[private_dir]/dhparam2048.pem' 2048";
 	#print $cmd.'<br>';
 	#flush();
 	#flush_exec($cmd,200);
