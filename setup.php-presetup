@@ -599,7 +599,7 @@ EOS;
 	#
 	print '<p><strong>Creating 1024 bit Diffie-Hellman parameters used by OpenVPN.<br>';
 	print "Saving to $store_dir/dhparam1024.pem.</strong><br>";
-	$cmd = "openssl dhparam -rand '$config[random]' -out '$config[private_dir]/dhparam1024.pem' 1024";
+	$cmd = "export RANDFILE='$config[random]' && openssl dhparam -rand '$config[random]' -out '$config[private_dir]/dhparam1024.pem' 1024";
 	print $cmd.'<br>';
 	flush();
 	flush_exec($cmd,100);
